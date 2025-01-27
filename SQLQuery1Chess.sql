@@ -18,13 +18,12 @@ INSERT dbo.players (player_id)
 SELECT distinct black_id
 FROM dbo.games2;
 
-SELECT * FROM dbo.players
-ORDER BY wins DESC;
+SELECT * FROM dbo.players;
 
 SELECT COUNT(*) AS TotalRows FROM dbo.players;
 
 
---Ýlk sorgu
+--This query was taking too long to execute.
 UPDATE dbo.players
 SET wins = (
     SELECT COUNT(*)
@@ -33,7 +32,7 @@ SET wins = (
        OR (dbo.games2.black_id = dbo.players.player_id AND dbo.games2.winner = 'black')
 );
 
---Optimize edilmiþ sorgu
+--Optimized new query.
 UPDATE d
 SET wins = t.wins
 FROM dbo.players d
@@ -54,31 +53,10 @@ ON d.player_id = t.player_id;
 
 SELECT player_id, wins 
 FROM dbo.players
-WHERE player_id = '29rus';
+WHERE player_id = 'example_player_id';
 
-
-
-
-
-SELECT DATEADD(SECOND, CAST(TRY_CAST(REPLACE(REPLACE(created_at, ',', '.'), 'E', 'e') AS FLOAT) / 1000000000 AS BIGINT), '2018-01-01') AS converted_date
-FROM dbo.games2;
-
-
-SELECT 
-    REPLACE(REPLACE(created_at, ',', '.'), 'E', 'e') AS formatted_value,
-    TRY_CAST(REPLACE(REPLACE(created_at, ',', '.'), 'E', 'e') AS FLOAT) AS float_value
-FROM dbo.games2;
-
-SELECT DATEADD(SECOND, CAST(TRY_CAST(REPLACE(REPLACE(created_at, ',', '.'), 'E', 'e') AS FLOAT) / 1000000 AS BIGINT), '1970-01-01') AS converted_date
-FROM dbo.games2;
-
-ALTER TABLE dbo.players
-ADD rating INT;
-
-SELECT * FROM dbo.players;
-
-
---ilk sorgu
+--*************--
+--This query was taking too long to execute.
 UPDATE dbo.players
 SET rating = (
     SELECT MAX(rating)
@@ -95,7 +73,7 @@ SET rating = (
 )
 FROM dbo.players p;
 
---optimize edilmiþ yeni sorgu
+--Optimized new query.
 WITH PlayerRatings AS (
     SELECT 
         player_id,
@@ -114,25 +92,6 @@ SET rating = pr.max_rating
 FROM dbo.players p
 JOIN PlayerRatings pr
 ON p.player_id = pr.player_id;
-
-
-
-SELECT 
-    CASE
-        WHEN rating < 1000 THEN 'under1000'
-        WHEN rating BETWEEN 1000 AND 1500 THEN '1000-1500'
-        WHEN rating BETWEEN 1501 AND 2000 THEN '1500-2000'
-        ELSE 'over2000'
-    END AS rating_group,
-    COUNT(*) AS player_count
-FROM dbo.players
-GROUP BY 
-    CASE
-        WHEN rating < 1000 THEN 'under1000'
-        WHEN rating BETWEEN 1000 AND 1500 THEN '1000-1500'
-        WHEN rating BETWEEN 1501 AND 2000 THEN '1500-2000'
-        ELSE 'over2000'
-    END;
 
 
 
