@@ -1,7 +1,7 @@
 # Lichess-Data-Analysis
-I analyzed a dataset published by Lichess that consisting of 20058 chess matches.  It focuses on player statistics such as wins, ratings, and categorizing players based on their ratings. The queries include both standard and optimized versions for better performance.
+I analyzed a dataset published by Lichess that consisting of 20058 chess matches.  It focuses on player statistics such as wins, ratings, and categorizing players based on their ratings. The queries include both standard and optimized versions for better performance. In this project the data analysis is visualized using Power BI.
 
-Queries Included:
+Queries Included: 
 
 
 Player Table Creation and Insertion: Creates a new dbo.players table to store unique player IDs and their wins from the games in the dbo.games2 table.
