@@ -10,7 +10,7 @@ Wins Update:Updates the wins column for each player by counting the number of ga
 Optimized Version: Uses an inner join and a union to calculate the wins more efficiently.
 
 Player Rating Update: Updates the player's rating based on the maximum rating from the games they participated in.
-Optimized Version: Uses a CTE (Common Table Expression) to fetch the maximum rating for each player and update it efficiently.
+Optimized Version: Uses a CTE to fetch the maximum rating for each player and update it efficiently.
 
 Rating Grouping: Groups players into rating ranges (under1000, 1000-1500, 1500-2000, over2000) and counts how many players fall into each range.
 
